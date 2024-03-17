@@ -16,6 +16,7 @@
         .sub-table{
             animation: transitionIn-Y-bottom 0.5s;
         }
+        
 </style>
 </head>
 <body>
@@ -260,36 +261,142 @@
                                                 break;
                                             }
     
-                                            echo '
-                                            <td style="width: 25%;">
-                                                    <div  class="dashboard-items search-items"  >
+                                            // echo '
+                                            // <td style="width: 25%;">
+                                            //         <div  class="dashboard-items search-items"  >
                                                     
-                                                        <div style="width:100%;">
-                                                        <div class="h3-search">
-                                                                    Booking Date: '.substr($appodate,0,30).'<br>
-                                                                    Reference Number: OC-000-'.$appoid.'
-                                                                </div>
-                                                                <div class="h1-search">
-                                                                    '.substr($title,0,21).'<br>
-                                                                </div>
-                                                                <div class="h3-search">
-                                                                    Appointment Number:<div class="h1-search">0'.$apponum.'</div>
-                                                                </div>
-                                                                <div class="h3-search">
-                                                                    '.substr($docname,0,30).'
-                                                                </div>
+                                            //             <div style="width:100%;">
+                                            //             <div class="h3-search">
+                                            //                         Booking Date: '.substr($appodate,0,30).'<br>
+                                            //                         Reference Number:'.$appoid.'
+                                            //                     </div>
+                                            //                     <div class="h1-search">
+                                            //                         '.substr($title,0,21).'<br>
+                                            //                     </div>
+                                            //                     <div class="h3-search">
+                                            //                         Appointment Number:<div class="h1-search">0'.$apponum.'</div>
+                                            //                     </div>
+                                            //                     <div class="h3-search">
+                                            //                         '.substr($docname,0,30).'
+                                            //                     </div>
                                                                 
                                                                 
-                                                                <div class="h4-search">
-                                                                    Scheduled Date: '.$scheduledate.'<br>Starts: <b>@'.substr($scheduletime,0,5).'</b> (24h)
-                                                                </div>
-                                                                <br>
-                                                                <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'" ><button  class="login-btn btn-primary-soft btn "  style="padding-top:11px;padding-bottom:11px;width:100%"><font class="tn-in-text">Cancel Booking</font></button></a>
-                                                        </div>
+                                            //                     <div class="h4-search">
+                                            //                         Scheduled Date: '.$scheduledate.'<br>Starts: <b>@'.substr($scheduletime,0,5).'</b> (24h)
+                                            //                     </div>
+                                            //                     <br>
+                                            //                     <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'" ><button  class="login-btn btn-primary-soft btn " 
+                                            //                      style="padding-top:11px;padding-bottom:11px;width:100%"><font class="tn-in-text">Cancel Booking</font></button></a>
+                                            //             </div>
                                                                 
-                                                    </div>
-                                                </td>';
-    
+                                            //         </div>
+                                            //     </td>';
+
+
+
+
+
+
+
+
+
+                                            //second comment
+                                            // echo '
+                                            // <td style="width: 25%;">
+                                            //     <div class="dashboard-items search-items">
+                                            //         <div style="width:100%;">
+                                            //             <div class="h3-search">
+                                            //                 Booking Date: '.substr($appodate,0,30).'<br>
+                                            //                 Reference Number:'.$appoid.'
+                                            //             </div>
+                                            //             <div class="h1-search">
+                                            //                 '.substr($title,0,21).'<br>
+                                            //             </div>
+                                            //             <div class="h3-search">
+                                            //                 Appointment Number:<div class="h1-search">0'.$apponum.'</div>
+                                            //             </div>
+                                            //             <div class="h3-search">
+                                            //                 '.substr($docname,0,30).'
+                                            //             </div>
+                                            //             <div class="h4-search">
+                                            //                 Scheduled Date: '.$scheduledate.'<br>Starts: <b>@'.substr($scheduletime,0,5).'</b> (24h)
+                                            //             </div>
+                                            //             <br>';
+                                            
+                                            // // Check if appointment date has passed
+                                            // if (strtotime($scheduledate) < strtotime(date('Y-m-d'))) {
+                                            //     echo '
+                                            //     <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%" disabled>
+                                            //         <font class="tn-in-text">Visited Session</font>
+                                            //     </button>';
+                                            // } else {
+                                            //     echo '
+                                            //     <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'">
+                                            //         <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%">
+                                            //             <font class="tn-in-text">Cancel Booking</font>
+                                            //         </button>
+                                            //     </a>';
+                                            // }
+                                            
+                                            // echo '
+                                            //         </div>
+                                            //     </div>
+                                            // </td>'; 
+                                            echo '
+<td style="width: 25%;">
+    <div class="dashboard-items search-items">
+        <div style="width:100%;">
+            <div class="h3-search">
+                Booking Date: '.substr($appodate, 0, 30).'<br>
+                Reference Number:'.$appoid.'
+            </div>
+            <div class="h1-search">
+                '.substr($title, 0, 21).'<br>
+            </div>
+            <div class="h3-search">
+                Appointment Number:<div class="h1-search">0'.$apponum.'</div>
+            </div>
+            <div class="h3-search">
+                '.substr($docname, 0, 30).'
+            </div>
+            <div class="h4-search">
+                Scheduled Date: '.$scheduledate.'<br>Starts: <b>@';
+                
+                // Calculate and display adjusted start time based on appointment number
+                $baseStartTime = new DateTime(substr($scheduletime, 0, 5));
+                $appointmentDuration = 15; // Assuming each appointment lasts for 15 minutes
+                $timeDifference = ($apponum - 1) * $appointmentDuration;
+                $newStartTime = $baseStartTime->modify("+".$timeDifference." minutes");
+                echo $newStartTime->format('H:i'); // Format time as desired
+                
+echo '</b> (24h)
+            </div>
+            <br>';
+            
+            // Check if appointment date has passed
+            if (strtotime($scheduledate) < strtotime(date('Y-m-d'))) {
+                echo '
+                <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%" disabled>
+                    <font class="tn-in-text">Visited Session</font>
+                </button>';
+            } else {
+                echo '
+                <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'">
+                    <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%">
+                        <font class="tn-in-text">Cancel Booking</font>
+                    </button>
+                </a>';
+            }
+            
+echo '
+        </div>
+    </div>
+</td>';
+
+                                            
+
+                                            
+                                            
                                         }
                                         echo "</tr>";
                            
