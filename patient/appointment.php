@@ -16,6 +16,52 @@
         .sub-table{
             animation: transitionIn-Y-bottom 0.5s;
         }
+
+.star-rating {
+  direction: rtl; 
+  font-size: 30px;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: orange;
+}
+
+.star-rating input[type="radio"]:disabled ~ label {
+  cursor: default; /* Remove pointer cursor */
+  opacity: 0.5; /* Reduce opacity for visual indication */
+}
+
+/* Style for the "Rate" button */
+.rate-btn {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; /* Optional rounded corners */
+}
+.disabled{
+    opacity: 0.5;
+
+}
+.star-rating:not([data-past="true"]) .rate-btn { /* Enable "Rate" button for past appointments */
+  opacity: 1; 
+  cursor: pointer;
+}     
         
 </style>
 </head>
@@ -53,7 +99,7 @@
 
 
     //TODO
-    $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  patient.pid=$userid ";
+    $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate,appointment.appointment_rating from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  patient.pid=$userid ";
 
     if($_POST){
         //print_r($_POST);
@@ -160,15 +206,7 @@
 
                 </tr>
                
-                <!-- <tr>
-                    <td colspan="4" >
-                        <div style="display: flex;margin-top: 40px;">
-                        <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">Schedule a Session</div>
-                        <a href="?action=add-session&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add a Session</font></button>
-                        </a>
-                        </div>
-                    </td>
-                </tr> -->
+             
                 <tr>
                     <td colspan="4" style="padding-top:10px;width: 100%;" >
                     
@@ -256,92 +294,15 @@
                                             $apponum=$row["apponum"];
                                             $appodate=$row["appodate"];
                                             $appoid=$row["appoid"];
+                                            $rating=intval($row["appointment_rating"]);
+                                            $btnClass=($rating>0)?("disabled"):("");
+                                            
+
     
                                             if($scheduleid==""){
                                                 break;
                                             }
     
-                                            // echo '
-                                            // <td style="width: 25%;">
-                                            //         <div  class="dashboard-items search-items"  >
-                                                    
-                                            //             <div style="width:100%;">
-                                            //             <div class="h3-search">
-                                            //                         Booking Date: '.substr($appodate,0,30).'<br>
-                                            //                         Reference Number:'.$appoid.'
-                                            //                     </div>
-                                            //                     <div class="h1-search">
-                                            //                         '.substr($title,0,21).'<br>
-                                            //                     </div>
-                                            //                     <div class="h3-search">
-                                            //                         Appointment Number:<div class="h1-search">0'.$apponum.'</div>
-                                            //                     </div>
-                                            //                     <div class="h3-search">
-                                            //                         '.substr($docname,0,30).'
-                                            //                     </div>
-                                                                
-                                                                
-                                            //                     <div class="h4-search">
-                                            //                         Scheduled Date: '.$scheduledate.'<br>Starts: <b>@'.substr($scheduletime,0,5).'</b> (24h)
-                                            //                     </div>
-                                            //                     <br>
-                                            //                     <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'" ><button  class="login-btn btn-primary-soft btn " 
-                                            //                      style="padding-top:11px;padding-bottom:11px;width:100%"><font class="tn-in-text">Cancel Booking</font></button></a>
-                                            //             </div>
-                                                                
-                                            //         </div>
-                                            //     </td>';
-
-
-
-
-
-
-
-
-
-                                            //second comment
-                                            // echo '
-                                            // <td style="width: 25%;">
-                                            //     <div class="dashboard-items search-items">
-                                            //         <div style="width:100%;">
-                                            //             <div class="h3-search">
-                                            //                 Booking Date: '.substr($appodate,0,30).'<br>
-                                            //                 Reference Number:'.$appoid.'
-                                            //             </div>
-                                            //             <div class="h1-search">
-                                            //                 '.substr($title,0,21).'<br>
-                                            //             </div>
-                                            //             <div class="h3-search">
-                                            //                 Appointment Number:<div class="h1-search">0'.$apponum.'</div>
-                                            //             </div>
-                                            //             <div class="h3-search">
-                                            //                 '.substr($docname,0,30).'
-                                            //             </div>
-                                            //             <div class="h4-search">
-                                            //                 Scheduled Date: '.$scheduledate.'<br>Starts: <b>@'.substr($scheduletime,0,5).'</b> (24h)
-                                            //             </div>
-                                            //             <br>';
-                                            
-                                            // // Check if appointment date has passed
-                                            // if (strtotime($scheduledate) < strtotime(date('Y-m-d'))) {
-                                            //     echo '
-                                            //     <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%" disabled>
-                                            //         <font class="tn-in-text">Visited Session</font>
-                                            //     </button>';
-                                            // } else {
-                                            //     echo '
-                                            //     <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'">
-                                            //         <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%">
-                                            //             <font class="tn-in-text">Cancel Booking</font>
-                                            //         </button>
-                                            //     </a>';
-                                            // }
-                                            
-                                            // echo '
-                                            //         </div>
-                                            //     </div>
-                                            // </td>'; 
                                             echo '
 <td style="width: 25%;">
     <div class="dashboard-items search-items">
@@ -376,9 +337,30 @@ echo '</b> (24h)
             // Check if appointment date has passed
             if (strtotime($scheduledate) < strtotime(date('Y-m-d'))) {
                 echo '
-                <button class="login-btn btn-primary-soft btn" style="padding-top:11px;padding-bottom:11px;width:100%" disabled>
-                    <font class="tn-in-text">Visited Session</font>
-                </button>';
+                <div class="appointment-container" id="appointment-container-'.$appoid.'">
+                <h2 class="appointment-title"></h2>
+                <p class="appointment-time">Rate us</p>
+                <div class="star-rating" data-past="true" data-rating-id="rating1" data-appointment-id='.$appoid.'>
+                  <input type="radio" id="star5-rating'.$appoid.'" name="rating-group'.$appoid.'" data-appointment-id='.$appoid.' value="5">
+                  <label for="star5-rating1" data-appointment-id='.$appoid.' value="5">★</label>
+                  <input type="radio" id="star4-rating'.$appoid.'" name="rating-group'.$appoid.'" data-appointment-id='.$appoid.' value="4">
+                  <label for="star4-rating1" data-appointment-id='.$appoid.' value="4">★</label>
+                  <input type="radio" id="star3-rating'.$appoid.'" name="rating-group'.$appoid.'" data-appointment-id='.$appoid.' value="3">
+                  <label for="star3-rating1" data-appointment-id='.$appoid.' value="3">★</label>
+                  <input type="radio" id="star2-rating'.$appoid.'" name="rating-group'.$appoid.'" data-appointment-id='.$appoid.' value="2">
+                  <label for="star2-rating1" data-appointment-id='.$appoid.' value="2">★</label>
+                  <input type="radio" id="star1-rating'.$appoid.'" name="rating-group'.$appoid.'" data-appointment-id='.$appoid.' value="1">
+                  <label for="star1-rating1" data-appointment-id='.$appoid.' value="1">★</label>
+                  <button class="rate-btn '.$btnClass.'"  data-appointment-id='.$appoid.'>Rate</button>
+
+                </div>
+                
+              </div>
+              
+                
+                
+                ';
+                
             } else {
                 echo '
                 <a href="?action=drop&id='.$appoid.'&title='.$title.'&doc='.$docname.'">
@@ -400,47 +382,6 @@ echo '
                                         }
                                         echo "</tr>";
                            
-                                // for ( $x=0; $x<$result->num_rows;$x++){
-                                //     $row=$result->fetch_assoc();
-                                //     $appoid=$row["appoid"];
-                                //     $scheduleid=$row["scheduleid"];
-                                //     $title=$row["title"];
-                                //     $docname=$row["docname"];
-                                //     $scheduledate=$row["scheduledate"];
-                                //     $scheduletime=$row["scheduletime"];
-                                //     $pname=$row["pname"];
-                                //     
-                                //     
-                                //     echo '<tr >
-                                //         <td style="font-weight:600;"> &nbsp;'.
-                                        
-                                //         substr($pname,0,25)
-                                //         .'</td >
-                                //         <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">
-                                //         '.$apponum.'
-                                        
-                                //         </td>
-                                //         <td>
-                                //         '.substr($title,0,15).'
-                                //         </td>
-                                //         <td style="text-align:center;;">
-                                //             '.substr($scheduledate,0,10).' @'.substr($scheduletime,0,5).'
-                                //         </td>
-                                        
-                                //         <td style="text-align:center;">
-                                //             '.$appodate.'
-                                //         </td>
-
-                                //         <td>
-                                //         <div style="display:flex;justify-content: center;">
-                                        
-                                //         <!--<a href="?action=view&id='.$appoid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
-                                //        &nbsp;&nbsp;&nbsp;-->
-                                //        <a href="?action=drop&id='.$appoid.'&name='.$pname.'&session='.$title.'&apponum='.$apponum.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Cancel</font></button></a>
-                                //        &nbsp;&nbsp;&nbsp;</div>
-                                //         </td>
-                                //     </tr>';
-                                    
                                 }
                             }
                                  
@@ -623,7 +564,72 @@ echo '
     }
 }
 
-    ?>
+?>
+      <script>
+         const appointmentContainers = document.querySelectorAll('.appointment-container');
+
+appointmentContainers.forEach(container => {
+  const appointmentIdString = container.id;
+  const appointmentId = parseInt(appointmentIdString.split(/-/).pop())
+  console.log(appointmentId+"<---APPOINTMENT ID");
+  const starRating = container.querySelector('#'+appointmentIdString+' .star-rating');
+  console.log(starRating);
+  const rateBTN = container.querySelector('#'+appointmentIdString+' .rate-btn');
+
+
+  const storedRating = parseInt(localStorage.getItem(`rating-${appointmentId}`));
+  console.log(storedRating);
+  if (storedRating && storedRating !== null) {
+    starRating.querySelector('#'+appointmentIdString+` input[value="${storedRating}"]`).checked = true;
+  }
+
+  starRating.addEventListener('click', onRatingClick , true);
+  rateBTN.addEventListener('click', updateRating , true);
+
+});
+
+function onRatingClick(e) {
+    const _starRating = e.target;
+    console.log(_starRating);
+    if(_starRating.matches("label")) {
+        console.log('aa');
+
+        _appointmentId = _starRating.getAttribute('data-appointment-id');
+        console.log(_appointmentId);
+
+       // const selectedRating = starRating.querySelector('#appointment-container-'+appointmentId+' input[type="radio"]:checked').value;
+       const selectedRating = _starRating.getAttribute('value');
+       document.querySelector('#appointment-container-'+_appointmentId+` input[value="${selectedRating}"]`).checked = true;
+
+        console.log(selectedRating);
+
+        localStorage.setItem(`rating-${_appointmentId}`, selectedRating);
+    }
+
+  }
+
+  
+function updateRating(e) {
+    const _rateBTN = e.target;
+    console.log(_rateBTN);
+    if(_rateBTN.matches("button")) {
+
+        _appointmentId = _rateBTN.getAttribute('data-appointment-id');
+
+        console.log(_appointmentId);
+
+ const Rating = parseInt(localStorage.getItem(`rating-${_appointmentId}`));
+  console.log(Rating);
+      
+        fetch(`update-rating.php?appoid=${_appointmentId}&rating=${Rating}`)
+        _rateBTN.classList.add("disabled");
+    }
+
+  }
+  
+
+              </script>
+                
     </div>
 
 </body>

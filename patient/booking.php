@@ -55,34 +55,16 @@
         $userid = $userfetch["pid"];
         $username = $userfetch["pname"];
     } else {
-        // Handle the case when no rows are returned
-        // You might want to display an error message or take appropriate action
+       
         echo "No user data found.";
-        exit(); // or return, or redirect, based on your application logic
+        exit(); 
     }
-    //minaliq kod e otdolu
-    // $stmt = $database->prepare($sqlmain);
-    // $stmt->bind_param("s",$useremail);
-    // $stmt->execute();
-    // $result = $stmt->get_result();
-    // $userfetch = $result->fetch_assoc(); // Use $result instead of $userrow     
-    
-
-    // $userid= $userfetch["pid"];
-    // $username=$userfetch["pname"];
-    
-    // do tuk
-    //echo $userid;
-    //echo $username;
-    
-
+   
 
     date_default_timezone_set('Europe/Sofia');
 
     $today = date('Y-m-d');
 
-
-    //echo $userid;
     ?>
     <div class="container">
         <div class="menu">
@@ -236,8 +218,7 @@
 
             <tr>
                 <td colspan="4" style="padding-top:10px;width: 100%;">
-                    <!-- <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49);font-weight:400;">Scheduled Sessions / Booking / <b>Review Booking</b></p> -->
-
+                   
                 </td>
 
             </tr>
@@ -290,71 +271,7 @@
                                         
                                     
                                     ';
-
-
-                                            // echo '
-                                            // <td style="width: 50%;" rowspan="2">
-                                            //         <div  class="dashboard-items search-items"  >
-                                    
-                                            //             <div style="width:100%">
-                                            //                     <div class="h1-search" style="font-size:25px;">
-                                            //                         Session Details
-                                            //                     </div><br><br>
-                                            //                     <div class="h3-search" style="font-size:18px;line-height:30px">
-                                            //                         Doctor name:  &nbsp;&nbsp;<b>'.$docname.'</b><br>
-                                            //                         Doctor Email:  &nbsp;&nbsp;<b>'.$docemail.'</b> 
-                                            //                     </div>
-                                            //                     <div class="h3-search" style="font-size:18px;">
-                                    
-                                            //                     </div><br>
-                                            //                     <div class="h3-search" style="font-size:18px;">
-                                            //                         Session Title: '.$title.'<br>
-                                            //                         Session Scheduled Date: '.$scheduledate.'<br>
-                                            //                         Session Starts : '.$scheduletime.'<br>
-                                            //                         Channeling fee : <b>5 leva  </b>
-                                    
-                                            //                     </div>
-                                            //                     <br>
-                                    
-                                            //             </div>
-                                    
-                                            //         </div>
-                                            //     </td>
-                                    
-
-
-                                            //     <td style="width: 25%;">
-                                            //         <div  class="dashboard-items search-items"  >
-                                    
-                                            //             <div style="width:100%;padding-top: 15px;padding-bottom: 15px;">
-                                            //                     <div class="h1-search" style="font-size:20px;line-height: 35px;margin-left:8px;text-align:center;">
-                                            //                         Your Appointment Number
-                                            //                     </div>
-                                            //                     <center>
-                                            //                     <div class=" dashboard-icons" style="margin-left: 0px;width:90%;font-size:70px;font-weight:800;text-align:center;color:var(--btnnictext);background-color: var(--btnice)">'.$apponum.'</div>
-                                            //                 </center>
-                                    
-                                            //                     </div><br>
-                                    
-                                            //                     <br>
-                                            //                     <br>
-                                            //             </div>
-                                    
-                                            //         </div>
-                                            //     </td>
-                                            //     </tr>
-                                            //     <tr>
-                                            //         <td>
-                                            //             <input type="Submit" class="login-btn btn-primary btn btn-book" style="margin-left:10px;padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;width:95%;text-align: center;" value="Book now" name="booknow"></button>
-                                            //         </form>
-                                            //         </td>
-                                            //     </tr>
-                                            //     '; 
-
-
                                             $baseStartTime = new DateTime('08:30:00');
-
-                                            // Define the appointment duration in minutes
                                             $appointmentDuration = 15;
                                             echo '
                                                 <td style="width: 50%;" rowspan="2">
@@ -372,8 +289,6 @@
                                     Session Title: ' . $title . '<br>
                                                             Session Scheduled Date: ' . $scheduledate . '<br>
                                                         Session Starts: ';
-
-                                            // Calculate new start time based on appointment number
                                             $timeDifference = ($apponum - 1) * $appointmentDuration;
                                             $newStartTime = $baseStartTime->modify("+" . $timeDifference . " minutes");
                                             echo $newStartTime->format('H:i:s'); // Format time as desired
