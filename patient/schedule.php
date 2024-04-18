@@ -111,9 +111,12 @@
         </div>
         <?php
 
-                $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today'  order by schedule.scheduledate asc";
+                $sqlmain= "select * from schedule 
+                inner join doctor on schedule.docid=doctor.docid 
+                where schedule.scheduledate>='$today'  
+                order by schedule.scheduledate asc";
                 $sqlpt1="";
-                $insertkey="";
+                $insertkey= "";
                 $q='';
                 $searchtype="All";
                         if($_POST){

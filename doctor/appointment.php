@@ -293,7 +293,7 @@
                                         '.substr($title,0,15).'
                                         </td>
                                         <td style="text-align:center;;">
-                                            '.substr($scheduledate,0,10).' @'.substr($scheduletime,0,5).'
+                                            '.substr($scheduledate,0,10).'  '.substr($scheduletime,0,5).'
                                         </td>
                                         
                                         <td style="text-align:center;">

@@ -197,7 +197,7 @@
                                                     <?php    echo $appointmentrow ->num_rows  ?>
                                                 </div><br>
                                                 <div class="h3-dashboard" >
-                                                    NewBooking &nbsp;&nbsp;
+                                                    New Booking &nbsp;&nbsp;
                                                 </div>
                                         </div>
                                                 <div class="btn-icon-back dashboard-icons" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
@@ -239,20 +239,20 @@
                                         ?>
                                     </p>
                                     <p style="padding-bottom:19px;padding-left:50px;font-size:15px;font-weight:500;color:#212529e3;line-height: 20px;">
-                                        Here's Quick access to Upcoming Appointments until 7 days<br>
-                                        More details available in @Appointment section.
+                                        Here's Quick access to the Upcoming Appointments the next 7 days<br>
+                                        More details are available in Appointment.
                                     </p>
 
                                 </td>
                                 <td>
                                     <p style="text-align:right;padding:10px;padding-right:48px;padding-bottom:0;font-size:23px;font-weight:700;color:var(--primarycolor);">
-                                        Upcoming Sessions  until Next <?php  
+                                        Upcoming Sessions until Next <?php  
                                         echo date("l",strtotime("+1 week"));
                                         ?>
                                     </p>
                                     <p style="padding-bottom:19px;text-align:right;padding-right:50px;font-size:15px;font-weight:500;color:#212529e3;line-height: 20px;">
-                                        Here's Quick access to Upcoming Sessions that Scheduled until 7 days<br>
-                                        Add,Remove and Many features available in @Schedule section.
+                                        ReadOnly Schedule for the Upcoming Sessions that are Scheduled for the next 7 days<br>
+                                        Add,Remove and Many features available in Schedule.
                                     </p>
                                 </td>
                             </tr>

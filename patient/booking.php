@@ -291,10 +291,10 @@
                                                         Session Starts: ';
                                             $timeDifference = ($apponum - 1) * $appointmentDuration;
                                             $newStartTime = $baseStartTime->modify("+" . $timeDifference . " minutes");
-                                            echo $newStartTime->format('H:i:s'); // Format time as desired
+                                            echo $newStartTime->format('H:i'); // Format time as desired
                                     
                                             echo '<br>
-Channeling fee: <b>5 leva </b>
+
 </div>
 <br>
 </div>
